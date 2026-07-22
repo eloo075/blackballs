@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers:wght@400&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --orange: #F7931A;
+  --orange-dark: #d4780f;
+  --orange-light: #ffb347;
+  --bg-dark: #0a0a0a;
+  --bg-card: #111111;
+  --bg-card2: #181818;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+.font-bangers {
+  font-family: 'Bangers', cursive;
+  letter-spacing: 0.04em;
+}
+
+/* Animated gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #F7931A 0%, #ffb347 50%, #F7931A 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+  to { background-position: 200% center; }
+}
+
+/* Glow effects */
+.orange-glow {
+  box-shadow: 0 0 30px rgba(247, 147, 26, 0.4), 0 0 60px rgba(247, 147, 26, 0.15);
+}
+
+.orange-glow-sm {
+  box-shadow: 0 0 15px rgba(247, 147, 26, 0.35);
+}
+
+.text-glow {
+  text-shadow: 0 0 20px rgba(247, 147, 26, 0.6), 0 0 40px rgba(247, 147, 26, 0.3);
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-18px); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(-2deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+
+@keyframes float-alt {
+  0%, 100% { transform: translateY(0px) rotate(2deg); }
+  50% { transform: translateY(-20px) rotate(-1deg); }
+}
+
+.float { animation: float 4s ease-in-out infinite; }
+.float-slow { animation: float-slow 5s ease-in-out infinite; }
+.float-alt { animation: float-alt 4.5s ease-in-out infinite; }
+
+/* Pulse glow for logo */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(247, 147, 26, 0.5), 0 0 40px rgba(247, 147, 26, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(247, 147, 26, 0.8), 0 0 80px rgba(247, 147, 26, 0.4); }
+}
+
+.logo-pulse { animation: pulse-glow 2.5s ease-in-out infinite; }
+
+@keyframes mascot-pulse {
+  0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 20px rgba(247, 147, 26, 0.35)); }
+  50% { transform: translateY(-10px) scale(1.08); filter: drop-shadow(0 0 40px rgba(247, 147, 26, 0.55)); }
+}
+
+.mascot-zoom {
+  animation: mascot-pulse 5s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.mascot-wrapper {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.mascot-wrapper:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* Scroll reveal */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.7s ease-out forwards;
+}
+
+/* Stars background */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+/* Ticker */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  animation: ticker 20s linear infinite;
+}
+
+/* Card hover */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(247, 147, 26, 0.25);
+}
+
+/* Button press */
+.btn-press {
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* Scanline effect */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+}
+
+/* Noise overlay */
+.noise-bg {
+  position: relative;
+}
+
+.noise-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Divider */
+.orange-divider {
+  background: linear-gradient(90deg, transparent, #F7931A, transparent);
+  height: 1px;
+  width: 100%;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #F7931A; border-radius: 3px; }
+
+/* Nav blur */
+.nav-blur {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* First 500 Believers — cyberpunk section */
+.cyber-grid {
+  background-image:
+    linear-gradient(rgba(247, 147, 26, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(247, 147, 26, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+}
+
+.believers-border-glow {
+  box-shadow:
+    inset 0 0 60px rgba(247, 147, 26, 0.06),
+    0 0 40px rgba(247, 147, 26, 0.15),
+    0 0 80px rgba(0, 255, 255, 0.05);
+  animation: believers-border-pulse 4s ease-in-out infinite;
+}
+
+@keyframes believers-border-pulse {
+  0%, 100% {
+    box-shadow:
+      inset 0 0 60px rgba(247, 147, 26, 0.06),
+      0 0 40px rgba(247, 147, 26, 0.15),
+      0 0 80px rgba(0, 255, 255, 0.05);
+  }
+  50% {
+    box-shadow:
+      inset 0 0 80px rgba(247, 147, 26, 0.1),
+      0 0 60px rgba(247, 147, 26, 0.25),
+      0 0 100px rgba(0, 255, 255, 0.1);
+  }
+}
+
+.believers-progress {
+  box-shadow: 0 0 12px rgba(247, 147, 26, 0.6);
+}
+
+.believers-step:hover {
+  transform: translateX(4px);
+}
+
+.believers-form {
+  box-shadow: 0 0 40px rgba(247, 147, 26, 0.08);
+}
+
+.believers-spinner {
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.believers-success-pulse {
+  animation: believers-success-pulse 2s ease-in-out infinite;
+}
+
+@keyframes believers-success-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
