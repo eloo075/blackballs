@@ -53,7 +53,7 @@ const STEPS = [
   },
   {
     num: 4,
-    text: 'Submit your Solana wallet address',
+    text: 'Submit your wallet address',
     icon: <Wallet size={18} className="text-[#F7931A]" />,
     accent: 'from-[#F7931A]/20 to-transparent',
   },
@@ -107,7 +107,7 @@ export default function First500Believers() {
     }
 
     const messages: Record<string, string> = {
-      invalid_wallet: 'Please enter a valid Solana wallet address.',
+      invalid_wallet: 'Please enter a valid EVM wallet address (0x...).',
       duplicate: 'This wallet has already been registered.',
       full: 'All 500 spots have been claimed. Stay tuned for the next drop!',
       network: 'Something went wrong. Please try again.',
@@ -238,7 +238,7 @@ export default function First500Believers() {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
                     <label htmlFor="wallet" className="block text-white/60 text-xs uppercase tracking-widest mb-2">
-                      Solana Wallet Address <span className="text-[#F7931A]">*</span>
+                      Wallet Address <span className="text-[#F7931A]">*</span>
                     </label>
                     <div className="relative">
                       <Wallet size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#F7931A]/60" />
@@ -247,7 +247,7 @@ export default function First500Believers() {
                         type="text"
                         value={wallet}
                         onChange={(e) => setWallet(e.target.value)}
-                        placeholder="Enter your Solana wallet address"
+                        placeholder="0xYourWalletAddress"
                         required
                         className="w-full bg-black/50 border border-white/10 focus:border-[#F7931A]/60 focus:ring-2 focus:ring-[#F7931A]/20 rounded-xl pl-11 pr-4 py-3.5 text-white placeholder:text-white/25 font-mono text-sm outline-none transition-all"
                       />

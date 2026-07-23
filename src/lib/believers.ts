@@ -14,10 +14,10 @@ export type SubmitResult =
 const STORAGE_KEY = 'blackballs_believers_v1';
 const LOCAL_WALLET_KEY = 'blackballs_believer_wallet';
 
-const SOLANA_WALLET_REGEX = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
+const EVM_WALLET_REGEX = /^0x[a-fA-F0-9]{40}$/;
 
-export function isValidSolanaWallet(address: string): boolean {
-  return SOLANA_WALLET_REGEX.test(address.trim());
+export function isValidWalletAddress(address: string): boolean {
+  return EVM_WALLET_REGEX.test(address.trim());
 }
 
 function normalizeUsername(username: string): string | null {
@@ -65,7 +65,7 @@ export async function submitBeliever(
   const walletTrimmed = wallet.trim();
   const username = normalizeUsername(xUsername ?? '');
 
-  if (!isValidSolanaWallet(walletTrimmed)) {
+  if (!isValidWalletAddress(walletTrimmed)) {
     return { ok: false, error: 'invalid_wallet' };
   }
 

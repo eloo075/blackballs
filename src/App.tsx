@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Copy, Check, Twitter, Send, ExternalLink, TrendingUp, Zap, Shield, Flame, ChevronDown, Menu, X } from 'lucide-react';
 import First500Believers from './components/First500Believers';
+import { CHAIN_NAME, CHAIN_EXPLORER, ROBINHOOD_CHAIN_LOGO } from './lib/constants';
 
 const CA = 'COMING SOON';
 
@@ -34,7 +35,7 @@ function CopyButton({ text }: { text: string }) {
 }
 
 function Ticker() {
-  const items = ['$BLACKBALLS', 'TO THE MOON', 'SOLANA', 'MEME COIN', 'BUY NOW', 'BLACKBALLS', '100X GEM', 'DIAMOND BALLS', 'HODL HARD'];
+  const items = ['$BLACKBALLS', 'TO THE MOON', 'ROBINHOOD CHAIN', 'MEME COIN', 'BUY NOW', 'BLACKBALLS', '100X GEM', 'DIAMOND BALLS', 'HODL HARD'];
   const doubled = [...items, ...items];
   return (
     <div className="overflow-hidden bg-[#F7931A] py-3 border-y border-[#d4780f]">
@@ -115,7 +116,7 @@ function Hero() {
   const stats = [
     { label: 'Our vibe', value: 'A meme coin that moves in waves' },
     { label: 'No roadmap', value: 'Only energy and momentum' },
-    { label: 'Solana fire', value: 'Built for holders who love the burn' },
+    { label: 'Chain fire', value: 'Launching on Robinhood Chain' },
   ];
 
   return (
@@ -146,9 +147,9 @@ function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
         <div className="flex flex-col items-center text-center gap-6 mb-16">
           {/* Badge */}
-          <div className="flex items-center gap-2 bg-[#F7931A]/10 border border-[#F7931A]/30 rounded-full px-5 py-2 text-[#F7931A] text-sm font-semibold uppercase tracking-widest">
-            <Zap size={14} />
-            The Boldest Coin on Solana
+          <div className="flex items-center gap-2 bg-[#CCFF00]/10 border border-[#CCFF00]/40 rounded-full px-5 py-2 text-[#CCFF00] text-sm font-semibold uppercase tracking-widest">
+            <img src={ROBINHOOD_CHAIN_LOGO} alt={CHAIN_NAME} className="w-5 h-5 rounded-full object-cover" />
+            Launching on {CHAIN_NAME}
           </div>
 
           {/* Main headline */}
@@ -163,15 +164,15 @@ function Hero() {
             <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden logo-pulse border-4 border-[#F7931A]/50">
               <img src="/images/photo_2026-07-10_14-48-04.jpg" alt="BlackBalls coin" className="w-full h-full object-cover" />
             </div>
-            <div className="absolute -top-2 -right-2 bg-[#F7931A] text-black text-xs font-black px-2 py-1 rounded-full uppercase tracking-wide">
-              SOL
+            <div className="absolute -top-2 -right-2 bg-[#CCFF00] rounded-full p-0.5 border-2 border-black/20 shadow-lg">
+              <img src={ROBINHOOD_CHAIN_LOGO} alt={CHAIN_NAME} className="w-9 h-9 rounded-full object-cover" />
             </div>
           </div>
 
           <p className="text-white/70 text-xl md:text-2xl max-w-2xl leading-relaxed font-medium">
             The most <span className="text-[#F7931A] font-bold">audacious</span>, most{' '}
             <span className="text-[#F7931A] font-bold">ballsy</span> meme coin to ever
-            hit the Solana blockchain. No roadmap. Just vibes.
+            hit {CHAIN_NAME}. No roadmap. Just vibes.
           </p>
 
           {/* CA Box */}
@@ -224,7 +225,7 @@ function About() {
     {
       icon: <Flame className="text-[#F7931A]" size={32} />,
       title: 'Born From Fire',
-      body: 'BlackBalls emerged from the flames of the Solana memecoin universe. When the market burns, our balls don\'t. They get stronger.',
+      body: 'BlackBalls emerged from the flames of the Robinhood Chain memecoin universe. When the market burns, our balls don\'t. They get stronger.',
     },
     {
       icon: <Zap className="text-[#F7931A]" size={32} />,
@@ -251,7 +252,7 @@ function About() {
           </h2>
           <p className="text-white/60 text-lg max-w-2xl mx-auto mt-4 leading-relaxed">
             Two legendary elemental warriors. One unstoppable meme coin. The bravest holders
-            on all of Solana.
+            on all of {CHAIN_NAME}.
           </p>
         </div>
 
@@ -316,7 +317,7 @@ function Tokenomics() {
           <h3 className="font-bangers text-3xl text-white mb-8">BlackBalls is more than a launch</h3>
           <p className="text-white/60 text-lg max-w-3xl mx-auto leading-relaxed mb-6">
             It’s a warm, electric movement built for people who love the vibes more than the numbers.
-            BlackBalls is the place where late-night energy, bold community spirit and Solana fire meet.
+            BlackBalls is the place where late-night energy, bold community spirit and Robinhood Chain fire meet.
           </p>
           <p className="text-white/60 text-lg max-w-3xl mx-auto leading-relaxed mb-6">
             We’re not chasing charts we’re building a brand with heart. Every holder is part of the story,
@@ -324,7 +325,7 @@ function Tokenomics() {
             is already winning.
           </p>
           <p className="text-white/60 text-lg max-w-3xl mx-auto leading-relaxed">
-            Stay close, stay hyped, and let BlackBalls warm up the space for the biggest Solana drop yet.
+            Stay close, stay hyped, and let BlackBalls warm up the space for the biggest Robinhood Chain drop yet.
             The real value is the energy we create together.
           </p>
         </div>
@@ -339,26 +340,26 @@ function HowToBuy() {
   const steps = [
     {
       num: '01',
-      title: 'Get a Solana Wallet',
-      body: 'Download Phantom or Solflare wallet from the official site. Create a new wallet and safely store your seed phrase.',
+      title: 'Get an EVM Wallet',
+      body: 'Download Robinhood Wallet or MetaMask. Create a wallet and safely store your seed phrase.',
       icon: <Shield size={24} className="text-[#F7931A]" />,
     },
     {
       num: '02',
-      title: 'Buy Some SOL',
-      body: 'Purchase SOL from Coinbase, Binance, or any major exchange. Transfer it to your Phantom wallet.',
+      title: 'Bridge ETH to Robinhood Chain',
+      body: 'Bridge ETH from Ethereum using the Arbitrum bridge or another supported route into Robinhood Chain.',
       icon: <TrendingUp size={24} className="text-[#F7931A]" />,
     },
     {
       num: '03',
-      title: 'Go to Raydium or Jupiter',
-      body: 'Head to Raydium.io or Jup.ag and connect your Phantom wallet. These are the top Solana DEXes.',
+      title: 'Go to Uniswap',
+      body: 'Head to Uniswap on Robinhood Chain and connect your wallet. Make sure you are on the Robinhood Chain network.',
       icon: <ExternalLink size={24} className="text-[#F7931A]" />,
     },
     {
       num: '04',
       title: 'Swap for $BLACKBALLS',
-      body: 'Paste the contract address, set slippage to 1-3%, and swap your SOL for $BLACKBALLS. You\'re in!',
+      body: 'Paste the contract address, set slippage to 1-3%, and swap ETH for $BLACKBALLS. You\'re in!',
       icon: <Zap size={24} className="text-[#F7931A]" />,
     },
   ];
@@ -404,9 +405,9 @@ function HowToBuy() {
           </div>
           <div className="flex flex-wrap gap-4 justify-center">
             <CopyButton text={CA} />
-            <a href="#" className="bg-white/5 hover:bg-white/10 border border-white/20 text-white font-bold px-6 py-2 rounded-lg btn-press transition-all duration-200 flex items-center gap-2">
+            <a href={CHAIN_EXPLORER} target="_blank" rel="noopener noreferrer" className="bg-white/5 hover:bg-white/10 border border-white/20 text-white font-bold px-6 py-2 rounded-lg btn-press transition-all duration-200 flex items-center gap-2">
               <ExternalLink size={16} />
-              View on Solscan
+              View on Blockscout
             </a>
           </div>
         </div>
@@ -459,7 +460,7 @@ function Community() {
             COM<span className="gradient-text">MUNITY</span>
           </h2>
           <p className="text-white/60 text-lg max-w-xl mx-auto mt-4">
-            The BlackBalls army is growing. Join us and be part of the most legendary meme coin community on Solana.
+            The BlackBalls army is growing. Join us and be part of the most legendary meme coin community on {CHAIN_NAME}.
           </p>
         </div>
 
@@ -492,7 +493,7 @@ function Community() {
               READY TO GROW <span className="gradient-text">YOUR BALLS?</span>
             </div>
             <p className="text-white/60 text-lg max-w-xl mx-auto mb-8">
-              Don't be a spectator. Join the BlackBalls revolution on Solana today.
+              Don't be a spectator. Join the BlackBalls revolution on {CHAIN_NAME} today.
             </p>
             <a
               href="#how-to-buy"
@@ -517,7 +518,10 @@ function Footer() {
             <img src="/images/photo_2026-07-10_14-48-04.jpg" alt="BlackBalls Logo" className="w-10 h-10 rounded-full object-cover" />
             <div>
               <div className="font-bangers text-2xl text-white tracking-wider">BLACKBALLS</div>
-              <div className="text-white/30 text-xs">$BLACKBALLS on Solana</div>
+              <div className="text-white/30 text-xs flex items-center gap-1.5">
+                $BLACKBALLS on {CHAIN_NAME}
+                <img src={ROBINHOOD_CHAIN_LOGO} alt={CHAIN_NAME} className="w-4 h-4 rounded-full object-cover inline" />
+              </div>
             </div>
           </div>
 
@@ -540,7 +544,7 @@ function Footer() {
         <div className="orange-divider my-8" />
 
         <div className="text-center text-white/20 text-sm">
-          BlackBalls. Built on Solana.
+          BlackBalls. Built on {CHAIN_NAME}.
         </div>
       </div>
     </footer>
