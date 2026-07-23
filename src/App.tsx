@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Copy, Check, Twitter, Send, ExternalLink, TrendingUp, Zap, Shield, Flame, ChevronDown, Menu, X } from 'lucide-react';
 import First500Believers from './components/First500Believers';
-import { CHAIN_NAME, CHAIN_EXPLORER, ROBINHOOD_CHAIN_LOGO } from './lib/constants';
+import { CHAIN_NAME, CHAIN_EXPLORER, ROBINHOOD_CHAIN_LOGO, X_HANDLE, TELEGRAM_URL } from './lib/constants';
 
 const CA = 'COMING SOON';
 
@@ -429,7 +429,7 @@ function Community() {
         />
       ),
       name: 'X',
-      handle: '@BlackBallsSOL',
+      handle: X_HANDLE,
       desc: 'Follow for the latest alpha and memes',
       color: 'from-[#000] to-[#111]',
       border: 'border-white/20 hover:border-white/40',
@@ -439,7 +439,7 @@ function Community() {
     {
       icon: <Send size={28} />,
       name: 'Telegram',
-      handle: 't.me/BlackBallsSOL',
+      handle: TELEGRAM_URL.replace('https://', ''),
       desc: 'Join the community chat and get news first',
       color: 'from-[#001a1a] to-[#111]',
       border: 'border-cyan-500/20 hover:border-cyan-500/50',
