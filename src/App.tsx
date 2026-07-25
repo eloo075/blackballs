@@ -3,7 +3,7 @@ import { Copy, Check, Send, ExternalLink, TrendingUp, Zap, Shield, Flame, Chevro
 import First500Believers from './components/First500Believers';
 import LogoRain from './components/LogoRain';
 import PastelBackground from './components/PastelBackground';
-import { CHAIN_NAME, CHAIN_EXPLORER, ROBINHOOD_CHAIN_LOGO, X_HANDLE, TELEGRAM_URL, X_PROFILE_URL } from './lib/constants';
+import { CHAIN_NAME, CHAIN_EXPLORER, ROBINHOOD_CHAIN_LOGO, ROBINHOOD_WORDMARK, X_HANDLE, TELEGRAM_URL, X_PROFILE_URL } from './lib/constants';
 
 const CA = 'COMING SOON';
 
@@ -43,7 +43,7 @@ function Ticker() {
   ];
   const doubled = [...items, ...items];
   return (
-    <div className="overflow-hidden bg-[#F7931A] py-3 ticker-meme">
+    <div className="overflow-hidden bg-[#FF9B3B] py-3 ticker-meme">
       <div className="ticker-track flex gap-0 whitespace-nowrap">
         {doubled.map((item, i) => (
           <span key={i} className="font-bangers text-black text-xl tracking-widest px-8 meme-headline">
@@ -71,7 +71,7 @@ function Nav() {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 nav-blur ${scrolled ? 'bg-white/90 border-b-2 border-black' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <a href="#" className="flex items-center gap-3 group">
-          <img src="/favicon.png" alt="BlackBalls" className="w-10 h-10 rounded-full object-cover logo-pulse" />
+          <img src="/logo.png" alt="BlackBalls" className="w-10 h-10 object-contain logo-pulse" />
           <span className="font-bangers text-2xl tracking-wider group-hover:opacity-90 transition-opacity cartoon-title-orange">BLACKBALLS</span>
         </a>
 
@@ -80,7 +80,7 @@ function Nav() {
             <a
               key={l}
               href={`#${l.toLowerCase().replace(/ /g, '-')}`}
-              className="text-black/70 hover:text-[#F7931A] font-bold transition-colors duration-200 text-sm uppercase tracking-wider"
+              className="text-black/70 hover:text-[#FF9B3B] font-bold transition-colors duration-200 text-sm uppercase tracking-wider"
             >
               {l}
             </a>
@@ -102,7 +102,7 @@ function Nav() {
         <div className="md:hidden bg-white border-t-2 border-black px-6 py-4 flex flex-col gap-4 shadow-[0_4px_0_#000]">
           {links.map(l => (
             <a key={l} href={`#${l.toLowerCase().replace(/ /g, '-')}`}
-              className="text-black/80 hover:text-[#F7931A] font-bold py-2 border-b border-black/10 transition-colors"
+              className="text-black/80 hover:text-[#FF9B3B] font-bold py-2 border-b border-black/10 transition-colors"
               onClick={() => setMobileOpen(false)}>
               {l}
             </a>
@@ -129,10 +129,10 @@ function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
         <div className="flex flex-col items-center text-center gap-6 mb-16">
           {/* Badge */}
-          <div className="meme-badge bg-lime-300 text-black px-4 py-1.5 text-xs sm:text-sm mb-1">
+          <div className="meme-badge bg-lime-300 text-black px-4 py-2 text-xs sm:text-sm mb-1 flex flex-wrap items-center justify-center gap-2">
             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            <img src={ROBINHOOD_CHAIN_LOGO} alt={CHAIN_NAME} className="w-4 h-4 rounded-full" />
-            live on {CHAIN_NAME}!!!
+            <img src={ROBINHOOD_WORDMARK} alt="Robinhood" className="h-5 sm:h-6 object-contain" />
+            <span className="font-black">live on {CHAIN_NAME}!!!</span>
           </div>
 
           {/* Main headline */}
@@ -144,19 +144,19 @@ function Hero() {
 
           {/* Logo */}
           <div className="relative my-2 wobble-slow">
-            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden logo-pulse">
-              <img src="/favicon.png" alt="BlackBalls" className="w-full h-full object-cover" />
+            <div className="w-32 h-32 md:w-40 md:h-40 logo-pulse">
+              <img src="/logo.png" alt="BlackBalls" className="w-full h-full object-contain" />
             </div>
-            <div className="absolute -top-2 -right-2 bg-lime-300 rounded-full p-0.5 border-2 border-black shadow-[2px_2px_0_#000]">
-              <img src={ROBINHOOD_CHAIN_LOGO} alt={CHAIN_NAME} className="w-9 h-9 rounded-full object-cover" />
+            <div className="absolute -top-2 -right-2 bg-lime-300 rounded-full p-1 border-2 border-black shadow-[2px_2px_0_#000]">
+              <img src={ROBINHOOD_CHAIN_LOGO} alt={CHAIN_NAME} className="w-8 h-8 rounded-full object-cover" />
             </div>
           </div>
 
           <p className="text-black/75 text-xl md:text-2xl max-w-2xl leading-relaxed font-semibold">
             the dumbest, boldest, most{' '}
-            <span className="text-[#F7931A] font-black">ballsy</span> meme coin on{' '}
+            <span className="text-[#FF9B3B] font-black">ballsy</span> meme coin on{' '}
             {CHAIN_NAME}. no roadmap. no utility. just vibes and{' '}
-            <span className="text-[#F7931A] font-black">number go brrr</span>.
+            <span className="text-[#FF9B3B] font-black">number go brrr</span>.
           </p>
 
           {/* CA Box */}
@@ -184,7 +184,7 @@ function Hero() {
           <div className="flex flex-wrap justify-center gap-8 mt-4">
             {stats.map(s => (
               <div key={s.label} className="text-center">
-                <div className="font-bangers text-2xl text-[#F7931A]">{s.value}</div>
+                <div className="font-bangers text-2xl text-[#FF9B3B]">{s.value}</div>
                 <div className="text-black/45 text-xs uppercase tracking-wider font-bold">{s.label}</div>
               </div>
             ))}
@@ -207,17 +207,17 @@ function About() {
 
   const cards = [
     {
-      icon: <Flame className="text-[#F7931A]" size={32} />,
+      icon: <Flame className="text-[#FF9B3B]" size={32} />,
       title: 'Born Unhinged',
       body: 'BlackBalls crawled out of the Robinhood Chain swamp with zero plan and maximum confidence. when markets burn, our balls don\'t shrink.',
     },
     {
-      icon: <Zap className="text-[#F7931A]" size={32} />,
+      icon: <Zap className="text-[#FF9B3B]" size={32} />,
       title: 'Number Go Brrr',
       body: 'not financial advice. not even financial anything. just vibes, memes, and chart lines that only go up (probably).',
     },
     {
-      icon: <Shield className="text-[#F7931A]" size={32} />,
+      icon: <Shield className="text-[#FF9B3B]" size={32} />,
       title: 'Diamond Nut Energy',
       body: 'zero tax. zero rug. zero brain cells required. hold like your portfolio depends on it — because it kinda does.',
     },
@@ -260,7 +260,7 @@ function About() {
           <div className="pastel-frame-pink overflow-hidden flex flex-col md:flex-row items-center p-8 gap-6 card-hover">
             <img src="/images/939.png" alt="FireBalls" className="w-36 h-48 object-contain float" />
             <div>
-              <div className="text-[#F7931A] text-xs font-black uppercase tracking-widest mb-2">the fire one</div>
+              <div className="text-[#FF9B3B] text-xs font-black uppercase tracking-widest mb-2">the fire one</div>
               <h3 className="font-bangers text-3xl text-black mb-3">FIRE BALLS 🔥</h3>
               <p className="text-black/65 leading-relaxed font-medium">when charts get hot, fire balls get hotter. this is the energy your portfolio is missing (or doesn&apos;t need).</p>
             </div>
@@ -304,7 +304,7 @@ function Tokenomics() {
             every holder is part of the lore. every meme is fuel. every pre-launch moment
             proves the degens are already winning before the token drops.
           </p>
-          <p className="text-[#F7931A] font-black text-lg uppercase tracking-wide">
+          <p className="text-[#FF9B3B] font-black text-lg uppercase tracking-wide">
             stay close. stay hyped. number go brrr. 🥜
           </p>
         </div>
@@ -321,25 +321,25 @@ function HowToBuy() {
       num: '01',
       title: 'Get Phantom',
       body: 'Download Phantom. Robinhood Chain is already live inside — no 47-step setup guide needed.',
-      icon: <Wallet size={24} className="text-[#F7931A]" />,
+      icon: <Wallet size={24} className="text-[#FF9B3B]" />,
     },
     {
       num: '02',
       title: 'Pick Robinhood Chain',
       body: 'Open Phantom → switch network to Robinhood Chain. One tap. Welcome to degen paradise.',
-      icon: <Shield size={24} className="text-[#F7931A]" />,
+      icon: <Shield size={24} className="text-[#FF9B3B]" />,
     },
     {
       num: '03',
       title: 'Grab Some ETH',
       body: 'Bridge or buy ETH on Robinhood Chain. You need gas. Even balls need fuel.',
-      icon: <TrendingUp size={24} className="text-[#F7931A]" />,
+      icon: <TrendingUp size={24} className="text-[#FF9B3B]" />,
     },
     {
       num: '04',
       title: 'Swap for $BLACKBALLS',
       body: 'Uniswap in Phantom → paste CA → set slippage 1-3% → smash swap. You now have balls. 🥜',
-      icon: <Zap size={24} className="text-[#F7931A]" />,
+      icon: <Zap size={24} className="text-[#FF9B3B]" />,
     },
   ];
 
@@ -381,7 +381,7 @@ function HowToBuy() {
           <div className="font-bangers text-3xl sm:text-4xl md:text-5xl text-black mb-2">Contract Address</div>
           <p className="text-black/50 text-sm mb-6 font-semibold">copy it. verify it. don&apos;t get rugged.</p>
           <div className="meme-input p-4 md:p-6 max-w-2xl mx-auto mb-6">
-            <p className="font-mono text-[#F7931A] text-base md:text-lg break-all font-bold">{CA}</p>
+            <p className="font-mono text-[#FF9B3B] text-base md:text-lg break-all font-bold">{CA}</p>
           </div>
           <div className="flex flex-wrap gap-4 justify-center">
             <CopyButton text={CA} />
@@ -496,12 +496,12 @@ function Footer() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <img src="/favicon.png" alt="BlackBalls" className="w-10 h-10 rounded-full object-cover logo-pulse" />
+            <img src="/logo.png" alt="BlackBalls" className="w-10 h-10 object-contain logo-pulse" />
             <div>
               <div className="font-bangers text-2xl text-black tracking-wider">BLACKBALLS</div>
-              <div className="text-black/50 text-xs flex items-center gap-1.5 font-bold">
+              <div className="text-black/50 text-xs flex items-center gap-2 font-bold">
                 $BLACKBALLS on {CHAIN_NAME}
-                <img src={ROBINHOOD_CHAIN_LOGO} alt={CHAIN_NAME} className="w-4 h-4 rounded-full object-cover inline" />
+                <img src={ROBINHOOD_WORDMARK} alt="Robinhood" className="h-4 object-contain inline" />
               </div>
             </div>
           </div>

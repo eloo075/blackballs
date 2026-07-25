@@ -54,7 +54,7 @@ const STEPS = [
   {
     num: 4,
     text: 'Drop your wallet (0x... only)',
-    icon: <Wallet size={18} className="text-[#F7931A]" />,
+    icon: <Wallet size={18} className="text-[#FF9B3B]" />,
     accent: 'step-pill-yellow',
   },
   {
@@ -136,7 +136,7 @@ export default function First500Believers() {
               <span className="cartoon-title-orange">BALLS</span>
             </h2>
             <p className="text-base sm:text-xl font-black text-black/85 mb-1">
-              free <span className="text-[#F7931A]">$BLACKBALLS</span> for early degens 🥜
+              free <span className="text-[#FF9B3B]">$BLACKBALLS</span> for early degens 🥜
             </p>
             <p className="text-black/55 text-sm max-w-md mx-auto font-semibold">
               do the tasks. drop wallet. get tokens before normies wake up. FOMO is real.
@@ -144,12 +144,12 @@ export default function First500Believers() {
 
             <div className="mt-6 max-w-md mx-auto">
               <div className="flex justify-between text-xs uppercase tracking-widest mb-2 font-black">
-                <span className="text-[#F7931A]">{count} / {MAX_BELIEVERS} aped in</span>
+                <span className="text-[#FF9B3B]">{count} / {MAX_BELIEVERS} aped in</span>
                 <span className="text-sky-600">{spotsLeft} left</span>
               </div>
               <div className="progress-track h-4 overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-[#F7931A] via-[#ffb347] to-lime-300 rounded-full transition-all duration-700"
+                  className="h-full bg-gradient-to-r from-[#FF9B3B] via-[#ffb347] to-lime-300 rounded-full transition-all duration-700"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -162,7 +162,7 @@ export default function First500Believers() {
           {/* Steps */}
           <div className="space-y-3">
             <h3 className="font-bangers text-2xl text-black mb-3 flex items-center gap-2">
-              <Zap size={22} className="text-[#F7931A]" />
+              <Zap size={22} className="text-[#FF9B3B]" />
               how to qualify (ez)
             </h3>
             {STEPS.map((step) => (
@@ -170,7 +170,7 @@ export default function First500Believers() {
                 key={step.num}
                 className={`meme-card believers-step flex items-start gap-3 p-4 ${step.accent}`}
               >
-                <div className="flex-shrink-0 w-9 h-9 rounded-full bg-[#F7931A] border-2 border-black flex items-center justify-center font-bangers text-lg text-black shadow-[2px_2px_0_#000]">
+                <div className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FF9B3B] border-2 border-black flex items-center justify-center font-bangers text-lg text-black shadow-[2px_2px_0_#000]">
                   {step.num}
                 </div>
                 <div className="flex-1 min-w-0 pt-0.5">
@@ -204,14 +204,14 @@ export default function First500Believers() {
           <div className="meme-card believers-form p-6 sm:p-8 bg-white">
             {qualified ? (
               <div className="flex flex-col items-center justify-center text-center py-6 sm:py-10 gap-5">
-                <img src="/favicon.png" alt="Qualified" className="w-20 h-20 rounded-full believers-success-pulse logo-pulse" />
+                <img src="/logo.png" alt="Qualified" className="w-20 h-20 object-contain believers-success-pulse logo-pulse" />
                 <div>
                   <h3 className="font-bangers text-3xl sm:text-4xl mb-2 leading-tight">
                     <span className="cartoon-title">YOU&apos;RE </span>
                     <span className="cartoon-title-orange">IN!!!</span>
                   </h3>
                   <p className="text-black/65 text-base max-w-sm mx-auto font-semibold">
-                    free <span className="text-[#F7931A] font-black">$BLACKBALLS</span> incoming.
+                    free <span className="text-[#FF9B3B] font-black">$BLACKBALLS</span> incoming.
                     don&apos;t paper hand before they arrive.
                   </p>
                 </div>
@@ -229,10 +229,10 @@ export default function First500Believers() {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
                     <label htmlFor="wallet" className="block text-black/60 text-xs uppercase tracking-widest mb-2 font-bold">
-                      Wallet Address <span className="text-[#F7931A]">*</span>
+                      Wallet Address <span className="text-[#FF9B3B]">*</span>
                     </label>
                     <div className="relative">
-                      <Wallet size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#F7931A]/70" />
+                      <Wallet size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#FF9B3B]/70" />
                       <input
                         id="wallet"
                         type="text"

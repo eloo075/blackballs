@@ -5,9 +5,9 @@
 @tailwind utilities;
 
 :root {
-  --orange: #F7931A;
-  --orange-dark: #d4780f;
-  --orange-light: #ffb347;
+  --orange: #FF9B3B;
+  --orange-dark: #e8852a;
+  --orange-light: #ffb86a;
   --site-bg: #FDFBF7;
   --site-text: #1a1a1a;
 }
@@ -71,8 +71,8 @@ body {
 }
 
 .cartoon-title-orange {
-  color: #F7931A;
-  -webkit-text-fill-color: #F7931A;
+  color: #FF9B3B;
+  -webkit-text-fill-color: #FF9B3B;
   text-shadow:
     2px 0 0 #000,
     -2px 0 0 #000,
@@ -87,8 +87,8 @@ body {
 }
 
 .gradient-text {
-  color: #F7931A;
-  -webkit-text-fill-color: #F7931A;
+  color: #FF9B3B;
+  -webkit-text-fill-color: #FF9B3B;
   background: none;
   animation: none;
   text-shadow:
@@ -140,13 +140,11 @@ body {
 .float-alt { animation: float-alt 4.5s ease-in-out infinite; }
 
 @keyframes logo-bounce {
-  0%, 100% { transform: translateY(0); box-shadow: 4px 4px 0 #000; }
-  50% { transform: translateY(-6px); box-shadow: 6px 8px 0 #000; }
+  0%, 100% { transform: translateY(0); filter: drop-shadow(4px 4px 0 rgba(0,0,0,1)); }
+  50% { transform: translateY(-6px); filter: drop-shadow(6px 8px 0 rgba(0,0,0,1)); }
 }
 .logo-pulse {
   animation: logo-bounce 3s ease-in-out infinite;
-  border: 4px solid #000 !important;
-  box-shadow: 4px 4px 0 #000;
 }
 
 @keyframes mascot-bounce {
@@ -181,14 +179,14 @@ body {
 .noise-bg { position: relative; }
 
 .orange-divider {
-  background: linear-gradient(90deg, transparent, #F7931A, transparent);
+  background: linear-gradient(90deg, transparent, #FF9B3B, transparent);
   height: 2px;
   width: 100%;
 }
 
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--site-bg); }
-::-webkit-scrollbar-thumb { background: #F7931A; border-radius: 4px; border: 2px solid #000; }
+::-webkit-scrollbar-thumb { background: #FF9B3B; border-radius: 4px; border: 2px solid #000; }
 
 .nav-blur {
   backdrop-filter: blur(16px);
@@ -229,7 +227,7 @@ body {
 .meme-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #000; }
 .meme-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
 
-.meme-btn-orange { background: #F7931A; color: #000; }
+.meme-btn-orange { background: #FF9B3B; color: #000; }
 .meme-btn-pink { background: #f9a8d4; color: #000; }
 .meme-btn-sky { background: #7dd3fc; color: #000; }
 .meme-btn-lime { background: #bef264; color: #000; }
@@ -281,7 +279,7 @@ body {
 }
 .meme-input:focus {
   border-color: #000;
-  box-shadow: 4px 4px 0 #F7931A;
+  box-shadow: 4px 4px 0 #FF9B3B;
   outline: none;
 }
 

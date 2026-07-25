@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-const LOGO_SRC = '/favicon.png';
+const LOGO_SRC = '/logo.png';
 const COUNT = 28;
 
 function seededRandom(seed: number) {
