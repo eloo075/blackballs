@@ -261,3 +261,117 @@ body {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.05); }
 }
+
+/* ── Meme / degen (dark + orange) ── */
+.meme-btn {
+  border: 3px solid #000;
+  border-radius: 9999px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 4px 4px 0 #000;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.meme-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #000;
+}
+
+.meme-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
+}
+
+.meme-btn-orange {
+  background: #F7931A;
+  color: #000;
+}
+
+.meme-btn-ghost {
+  background: #111;
+  color: #fff;
+  border-color: #F7931A;
+  box-shadow: 4px 4px 0 #F7931A;
+}
+
+.meme-btn-ghost:hover {
+  box-shadow: 6px 6px 0 #F7931A;
+}
+
+.meme-card {
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.25rem;
+  box-shadow: 5px 5px 0 rgba(247, 147, 26, 0.3);
+}
+
+.meme-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 2px solid #000;
+  border-radius: 9999px;
+  box-shadow: 3px 3px 0 #000;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.meme-headline {
+  text-shadow: 3px 3px 0 #000, 0 0 30px rgba(247, 147, 26, 0.25);
+}
+
+.meme-input {
+  border: 3px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  box-shadow: 3px 3px 0 rgba(247, 147, 26, 0.2);
+}
+
+.meme-input:focus {
+  border-color: #F7931A;
+  box-shadow: 3px 3px 0 #F7931A;
+  outline: none;
+}
+
+.meme-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  animation: meme-blob-drift 10s ease-in-out infinite;
+}
+
+@keyframes meme-blob-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(25px, -20px) scale(1.08); }
+}
+
+@keyframes wobble-slow {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+.wobble-slow { animation: wobble-slow 4s ease-in-out infinite; }
+
+.ticker-meme {
+  border-top: 3px solid #000;
+  border-bottom: 3px solid #000;
+}
+
+/* Logo rain */
+@keyframes logo-fall {
+  0% {
+    transform: translateY(-12vh) rotate(0deg);
+    opacity: 0;
+  }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% {
+    transform: translateY(112vh) rotate(calc(360deg * var(--spin-dir, 1)));
+    opacity: 0;
+  }
+}
+
+.logo-rain-drop {
+  animation: logo-fall linear infinite;
+  will-change: transform;
+}
