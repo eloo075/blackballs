@@ -10,8 +10,3 @@ export const MAX_BELIEVERS = 500;
 export const CHAIN_NAME = 'Robinhood Chain';
 export const CHAIN_EXPLORER = 'https://robinhoodchain.blockscout.com';
 export const ROBINHOOD_CHAIN_LOGO = '/images/robinhood-chain.png';
-
-/** Mascot assets */
-export const MASCOT_HERO = '/images/mascot-diamond.png';
-export const MASCOT_FULL = '/images/mascot-full.png';
-export const MASCOT_BANNER = '/images/mascot-banner.png';
