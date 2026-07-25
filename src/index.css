@@ -261,3 +261,121 @@ body {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.05); }
 }
+
+/* ── Degen / $AHH-style utilities ── */
+.degen-shadow {
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.9);
+}
+
+.degen-shadow-lg {
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.9);
+}
+
+.degen-shadow-orange {
+  box-shadow: 5px 5px 0 #F7931A;
+}
+
+.degen-btn {
+  border: 3px solid #000;
+  border-radius: 9999px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.degen-btn:hover {
+  transform: translate(-2px, -2px);
+}
+
+.degen-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000 !important;
+}
+
+.degen-btn-primary {
+  background: #F7931A;
+  color: #000;
+  box-shadow: 5px 5px 0 #000;
+}
+
+.degen-btn-primary:hover {
+  box-shadow: 7px 7px 0 #000;
+}
+
+.degen-btn-secondary {
+  background: #111;
+  color: #fff;
+  border-color: #F7931A;
+  box-shadow: 5px 5px 0 #F7931A;
+}
+
+.degen-btn-secondary:hover {
+  box-shadow: 7px 7px 0 #F7931A;
+}
+
+.degen-card {
+  border: 3px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.5rem;
+  box-shadow: 6px 6px 0 rgba(247, 147, 26, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.degen-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 rgba(247, 147, 26, 0.35);
+}
+
+.degen-badge {
+  border: 2px solid #000;
+  border-radius: 9999px;
+  box-shadow: 3px 3px 0 #000;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.degen-headline {
+  text-shadow: 4px 4px 0 #000, -1px -1px 0 rgba(247, 147, 26, 0.5);
+}
+
+.degen-input {
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  border-radius: 1rem;
+  box-shadow: 4px 4px 0 rgba(247, 147, 26, 0.2);
+}
+
+.degen-input:focus {
+  border-color: #F7931A;
+  box-shadow: 4px 4px 0 #F7931A;
+  outline: none;
+}
+
+.degen-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: blob-drift 8s ease-in-out infinite;
+}
+
+@keyframes blob-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(20px, -30px) scale(1.05); }
+  66% { transform: translate(-15px, 20px) scale(0.95); }
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+.wobble { animation: wobble 3s ease-in-out infinite; }
+
+.mascot-glow {
+  filter: drop-shadow(0 0 40px rgba(247, 147, 26, 0.5)) drop-shadow(0 0 80px rgba(255, 180, 71, 0.25));
+}
+
+.ticker-degen {
+  border-top: 3px solid #000;
+  border-bottom: 3px solid #000;
+}
