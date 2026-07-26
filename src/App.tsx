@@ -3,9 +3,19 @@ import { Copy, Check, Send, ExternalLink, TrendingUp, Zap, Shield, Flame, Chevro
 import First500Believers from './components/First500Believers';
 import LogoRain from './components/LogoRain';
 import PastelBackground from './components/PastelBackground';
-import { CHAIN_NAME, CHAIN_EXPLORER, ROBINHOOD_CHAIN_LOGO, ROBINHOOD_WORDMARK, X_HANDLE, TELEGRAM_URL, X_PROFILE_URL } from './lib/constants';
+import ArcadeGameCTA from './components/ArcadeGameCTA';
+import LiveMultiplierWidget from './components/LiveMultiplierWidget';
+import { CHAIN_NAME, CHAIN_EXPLORER, ROBINHOOD_CHAIN_LOGO, X_HANDLE, TELEGRAM_URL, X_PROFILE_URL } from './lib/constants';
 
 const CA = 'COMING SOON';
+
+function RobinhoodFeather({ className = 'w-4 h-4' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M20.5 2.5c-5.2 3.8-8.8 8.2-10.8 13.2-.6 1.5-1 3-1.2 4.5l-.1.8.8-.2c1.5-.4 3-.9 4.5-1.6 5-2.2 9.4-5.8 13.2-11 .3-.4.2-1-.3-1.3-.5-.3-1.1-.2-1.4.3-.1.1-.1.1-.7.3z" />
+    </svg>
+  );
+}
 
 function useInView(threshold = 0.15) {
   const ref = useRef<HTMLDivElement>(null);
@@ -128,11 +138,14 @@ function Hero() {
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-24 pb-16">
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
         <div className="flex flex-col items-center text-center gap-6 mb-16">
-          {/* Badge */}
-          <div className="meme-badge bg-lime-300 text-black px-4 py-2 text-xs sm:text-sm mb-1 flex flex-wrap items-center justify-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            <img src={ROBINHOOD_WORDMARK} alt="Robinhood" className="h-5 sm:h-6 object-contain" />
-            <span className="font-black">live on {CHAIN_NAME}!!!</span>
+          {/* Game CTA + chain badge */}
+          <div className="flex flex-col items-center gap-3 w-full max-w-2xl">
+            <ArcadeGameCTA />
+            <div className="meme-badge bg-lime-300 text-black px-4 py-2 text-xs sm:text-sm flex flex-wrap items-center justify-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+              <RobinhoodFeather className="w-4 h-4 shrink-0" />
+              <span className="font-black uppercase tracking-wide">live on {CHAIN_NAME}!!!</span>
+            </div>
           </div>
 
           {/* Main headline */}
@@ -169,7 +182,7 @@ function Hero() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-wrap gap-4 justify-center w-full max-w-2xl">
             <a href="#how-to-buy" className="meme-btn meme-btn-orange px-8 py-4 text-lg btn-press flex items-center gap-2">
               <TrendingUp size={20} />
               APE IN NOW
@@ -258,7 +271,7 @@ function About() {
         {/* Mascot feature */}
         <div className="grid md:grid-cols-2 gap-8">
           <div className="pastel-frame-pink overflow-hidden flex flex-col md:flex-row items-center p-8 gap-6 card-hover">
-            <img src="/images/939.png" alt="FireBalls" className="w-36 h-48 object-contain float" />
+            <img src="/images/645.png" alt="FireBalls" className="w-36 h-48 object-contain float" />
             <div>
               <div className="text-[#FF9B3B] text-xs font-black uppercase tracking-widest mb-2">the fire one</div>
               <h3 className="font-bangers text-3xl text-black mb-3">FIRE BALLS 🔥</h3>
@@ -267,7 +280,7 @@ function About() {
           </div>
 
           <div className="pastel-frame-sky overflow-hidden flex flex-col md:flex-row items-center p-8 gap-6 card-hover">
-            <img src="/images/645.png" alt="LightningBalls" className="w-36 h-48 object-contain float-alt" />
+            <img src="/images/939.png" alt="LightningBalls" className="w-36 h-48 object-contain float-alt" />
             <div>
               <div className="text-sky-600 text-xs font-black uppercase tracking-widest mb-2">the electric one</div>
               <h3 className="font-bangers text-3xl text-black mb-3">LIGHTNING BALLS ⚡</h3>
@@ -499,9 +512,9 @@ function Footer() {
             <img src="/logo.png" alt="BlackBalls" className="w-10 h-10 object-contain logo-pulse" />
             <div>
               <div className="font-bangers text-2xl text-black tracking-wider">BLACKBALLS</div>
-              <div className="text-black/50 text-xs flex items-center gap-2 font-bold">
+              <div className="text-black/50 text-xs flex items-center gap-1.5 font-bold">
+                <RobinhoodFeather className="w-3.5 h-3.5 shrink-0" />
                 $BLACKBALLS on {CHAIN_NAME}
-                <img src={ROBINHOOD_WORDMARK} alt="Robinhood" className="h-4 object-contain inline" />
               </div>
             </div>
           </div>
@@ -538,6 +551,7 @@ export default function App() {
     <div className="min-h-screen site-canvas relative text-black">
       <PastelBackground />
       <LogoRain />
+      <LiveMultiplierWidget />
       <div className="relative z-[2]">
         <Nav />
         <Ticker />

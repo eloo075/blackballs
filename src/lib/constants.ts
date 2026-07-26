@@ -12,3 +12,6 @@ export const CHAIN_EXPLORER = 'https://robinhoodchain.blockscout.com';
 export const ROBINHOOD_CHAIN_LOGO = '/images/robinhood-chain.png';
 export const ROBINHOOD_WORDMARK = '/images/robinhood-wordmark.png';
 export const BRAND_ORANGE = '#FF9B3B';
+
+/** Live game */
+export const GAME_URL = 'https://game.blackballs.site/';

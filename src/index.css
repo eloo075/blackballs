@@ -345,3 +345,13 @@ body {
   100% { transform: translateY(112vh) rotate(calc(360deg * var(--spin-dir, 1))); opacity: 0; }
 }
 .logo-rain-drop { animation: logo-fall linear infinite; will-change: transform; }
+
+.animation-delay-150 { animation-delay: 150ms; }
+
+@keyframes arcade-glow {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.08); }
+}
+.arcade-game-cta {
+  animation: arcade-glow 2.5s ease-in-out infinite;
+}
