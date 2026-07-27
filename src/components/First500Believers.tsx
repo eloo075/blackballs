@@ -23,8 +23,17 @@ import {
   getSubmissionCount,
   getLocalSubmittedWallet,
   submitBeliever,
+  isValidWalletAddress,
   usingRemoteStorage,
 } from '../lib/believers';
+
+type CompletedTasks = { task1: boolean; task2: boolean; task3: boolean };
+
+const TASK_BY_STEP: Record<number, keyof CompletedTasks | undefined> = {
+  1: 'task1',
+  2: 'task2',
+  3: 'task3',
+};
 
 const STEPS = [
   {
@@ -73,6 +82,18 @@ export default function First500Believers() {
   const [loading, setLoading] = useState(false);
   const [qualified, setQualified] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [completedTasks, setCompletedTasks] = useState<CompletedTasks>({
+    task1: false,
+    task2: false,
+    task3: false,
+  });
+
+  const markTaskComplete = (task: keyof CompletedTasks) => {
+    setCompletedTasks((prev) => ({ ...prev, [task]: true }));
+  };
+
+  const allSocialTasksComplete =
+    completedTasks.task1 && completedTasks.task2 && completedTasks.task3;
 
   useEffect(() => {
     const stored = getLocalSubmittedWallet();
@@ -91,6 +112,17 @@ export default function First500Believers() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
+
+    if (!allSocialTasksComplete) {
+      setError('⚠️ You must complete Steps 1, 2, and 3 first!');
+      return;
+    }
+
+    if (!isValidWalletAddress(wallet)) {
+      setError('⚠️ Enter a valid 0x wallet address.');
+      return;
+    }
+
     setLoading(true);
 
     const result = await submitBeliever(wallet, username);
@@ -107,11 +139,13 @@ export default function First500Believers() {
     }
 
     const messages: Record<string, string> = {
-      invalid_wallet: 'Fake wallet detected. Drop a real 0x address, degen.',
-      duplicate: 'Already claimed. Nice try, ballsy.',
+      invalid_wallet: '⚠️ Enter a valid 0x wallet address.',
+      duplicate: '⚠️ This wallet address has already been submitted!',
+      duplicate_ip: '⚠️ This IP address has already submitted a wallet!',
       full: '500/500 gone. You slept. Skill issue.',
       network: 'Something broke. Blame the chain, retry.',
       already_submitted: 'You already qualified. Patience.',
+      server_misconfigured: 'Submission API not configured. Contact support.',
     };
     setError(messages[result.error] ?? 'Submission failed. Please try again.');
   };
@@ -165,13 +199,21 @@ export default function First500Believers() {
               <Zap size={22} className="text-[#FF9B3B]" />
               how to qualify (ez)
             </h3>
-            {STEPS.map((step) => (
+            {STEPS.map((step) => {
+              const taskKey = TASK_BY_STEP[step.num];
+              const isComplete = taskKey ? completedTasks[taskKey] : false;
+
+              return (
               <div
                 key={step.num}
-                className={`meme-card believers-step flex items-start gap-3 p-4 ${step.accent}`}
+                className={`meme-card believers-step flex items-start gap-3 p-4 ${step.accent} ${
+                  isComplete ? 'border-green-500 ring-2 ring-green-400' : ''
+                }`}
               >
-                <div className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FF9B3B] border-2 border-black flex items-center justify-center font-bangers text-lg text-black shadow-[2px_2px_0_#000]">
-                  {step.num}
+                <div className={`flex-shrink-0 w-9 h-9 rounded-full border-2 border-black flex items-center justify-center font-bangers text-lg shadow-[2px_2px_0_#000] ${
+                  isComplete ? 'bg-green-500 text-white' : 'bg-[#FF9B3B] text-black'
+                }`}>
+                  {isComplete ? <CheckCircle2 size={20} /> : step.num}
                 </div>
                 <div className="flex-1 min-w-0 pt-0.5">
                   <div className="flex items-center gap-2 flex-wrap">
@@ -182,12 +224,16 @@ export default function First500Believers() {
                         <span className="ml-1 text-black/40 text-xs">(optional lol)</span>
                       )}
                     </span>
+                    {isComplete && (
+                      <span className="text-green-600 font-black text-sm">✓</span>
+                    )}
                   </div>
                   {step.link && (
                     <a
                       href={step.link}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => taskKey && markTaskComplete(taskKey)}
                       className="inline-flex items-center gap-1.5 mt-2 text-xs sm:text-sm text-sky-700 hover:text-sky-900 transition-colors font-bold"
                     >
                       {step.num === 1 && <Repeat2 size={14} />}
@@ -197,7 +243,7 @@ export default function First500Believers() {
                   )}
                 </div>
               </div>
-            ))}
+            );})}
           </div>
 
           {/* Form */}
@@ -276,6 +322,7 @@ export default function First500Believers() {
                     </div>
                   )}
 
+.old_string
                   <button
                     type="submit"
                     disabled={loading || spotsLeft === 0}
