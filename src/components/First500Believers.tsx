@@ -1,16 +1,19 @@
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Sparkles,
   Heart,
   Repeat2,
   UserPlus,
   MessageCircle,
+  Camera,
   Wallet,
-  AtSign,
+  Lock,
   CheckCircle2,
-  AlertCircle,
   ExternalLink,
   Zap,
+  ImageIcon,
+  Globe,
+  Award,
 } from 'lucide-react';
 import {
   LAUNCH_POST_URL,
@@ -18,70 +21,77 @@ import {
   X_PROFILE_URL,
   TELEGRAM_URL,
   MAX_BELIEVERS,
+  GAME_URL,
 } from '../lib/constants';
-import {
-  getSubmissionCount,
-  getLocalSubmittedWallet,
-  submitBeliever,
-  isValidWalletAddress,
-  usingRemoteStorage,
-} from '../lib/believers';
+import { getSubmissionCount } from '../lib/believers';
 
 type CompletedTasks = { task1: boolean; task2: boolean; task3: boolean };
 
-const TASK_BY_STEP: Record<number, keyof CompletedTasks | undefined> = {
-  1: 'task1',
-  2: 'task2',
-  3: 'task3',
-};
+const SOCIAL_SUBTASKS = [
+  {
+    taskKey: 'task1' as const,
+    text: 'Like + RT the launch post',
+    link: LAUNCH_POST_URL,
+    linkLabel: 'smash that post',
+    icon: <Heart size={16} className="text-pink-500" />,
+  },
+  {
+    taskKey: 'task2' as const,
+    text: `Follow ${X_HANDLE}`,
+    link: X_PROFILE_URL,
+    linkLabel: X_HANDLE,
+    icon: <UserPlus size={16} className="text-sky-600" />,
+  },
+  {
+    taskKey: 'task3' as const,
+    text: 'Join the Telegram war room',
+    link: TELEGRAM_URL,
+    linkLabel: 'enter the chaos',
+    icon: <MessageCircle size={16} className="text-sky-600" />,
+  },
+];
 
 const STEPS = [
   {
-    num: 1,
-    text: 'Like + RT the launch post (actually do it)',
-    link: LAUNCH_POST_URL,
-    linkLabel: 'smash that post',
-    icon: <Heart size={18} className="text-pink-500" />,
-    accent: 'step-pill-pink',
-  },
-  {
     num: 2,
-    text: `Follow ${X_HANDLE} (we post bangers)`,
-    link: X_PROFILE_URL,
-    linkLabel: X_HANDLE,
-    icon: <UserPlus size={18} className="text-sky-600" />,
+    text: 'Go to the game site (engine locked — blurred chart tease only)',
+    link: GAME_URL,
+    linkLabel: 'open game site',
+    icon: <Globe size={18} className="text-sky-600" />,
     accent: 'step-pill-sky',
   },
   {
     num: 3,
-    text: 'Join the Telegram war room',
-    link: TELEGRAM_URL,
-    linkLabel: 'enter the chaos',
-    icon: <MessageCircle size={18} className="text-sky-600" />,
-    accent: 'step-pill-sky',
-  },
-  {
-    num: 4,
-    text: 'Drop your wallet (0x... only)',
+    text: 'Submit your wallet on the game site',
+    link: GAME_URL,
+    linkLabel: 'submit wallet',
     icon: <Wallet size={18} className="text-[#FF9B3B]" />,
     accent: 'step-pill-yellow',
   },
   {
-    num: 5,
-    text: 'Optional: X handle (so we know who you are)',
-    icon: <AtSign size={18} className="text-black/50" />,
+    num: 4,
+    text: 'Unlock your Congratulations Card',
+    icon: <Award size={18} className="text-lime-600" />,
     accent: 'step-pill-lime',
-    optional: true,
+  },
+  {
+    num: 5,
+    text: 'Screenshot your Congratulations Card (this is your proof)',
+    icon: <Camera size={18} className="text-[#FF9B3B]" />,
+    accent: 'step-pill-yellow',
+  },
+  {
+    num: 6,
+    text: 'Reply to the launch post on X with your screenshot',
+    link: LAUNCH_POST_URL,
+    linkLabel: 'post your proof on X',
+    icon: <ImageIcon size={18} className="text-pink-500" />,
+    accent: 'step-pill-pink',
   },
 ];
 
 export default function First500Believers() {
-  const [wallet, setWallet] = useState('');
-  const [username, setUsername] = useState('');
   const [count, setCount] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [qualified, setQualified] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [completedTasks, setCompletedTasks] = useState<CompletedTasks>({
     task1: false,
     task2: false,
@@ -92,15 +102,10 @@ export default function First500Believers() {
     setCompletedTasks((prev) => ({ ...prev, [task]: true }));
   };
 
-  const allSocialTasksComplete =
+  const allSocialComplete =
     completedTasks.task1 && completedTasks.task2 && completedTasks.task3;
 
   useEffect(() => {
-    const stored = getLocalSubmittedWallet();
-    if (stored) {
-      setWallet(stored);
-      setQualified(true);
-    }
     getSubmissionCount()
       .then(setCount)
       .catch(() => setCount(0));
@@ -109,52 +114,8 @@ export default function First500Believers() {
   const spotsLeft = Math.max(0, MAX_BELIEVERS - count);
   const progress = Math.min(100, (count / MAX_BELIEVERS) * 100);
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setError(null);
-
-    if (!allSocialTasksComplete) {
-      setError('⚠️ You must complete Steps 1, 2, and 3 first!');
-      return;
-    }
-
-    if (!isValidWalletAddress(wallet)) {
-      setError('⚠️ Enter a valid 0x wallet address.');
-      return;
-    }
-
-    setLoading(true);
-
-    const result = await submitBeliever(wallet, username);
-    setLoading(false);
-
-    if (result.ok) {
-      setQualified(true);
-      try {
-        setCount(await getSubmissionCount());
-      } catch {
-        setCount((c) => Math.min(MAX_BELIEVERS, c + 1));
-      }
-      return;
-    }
-
-    const messages: Record<string, string> = {
-      invalid_wallet: '⚠️ Enter a valid 0x wallet address.',
-      duplicate: '⚠️ This wallet address has already been submitted!',
-      duplicate_ip: '⚠️ This IP address has already submitted a wallet!',
-      full: '500/500 gone. You slept. Skill issue.',
-      network: 'Something broke. Blame the chain, retry.',
-      already_submitted: 'You already qualified. Patience.',
-      server_misconfigured: 'Submission API not configured. Contact support.',
-    };
-    setError(messages[result.error] ?? 'Submission failed. Please try again.');
-  };
-
   return (
-    <section
-      id="first-500"
-      className="relative pt-28 pb-16 overflow-hidden"
-    >
+    <section id="first-500" className="relative pt-28 pb-16 overflow-hidden">
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6">
         {/* Banner */}
         <div className="meme-card believers-banner relative overflow-hidden mb-8 bg-yellow-50">
@@ -172,9 +133,15 @@ export default function First500Believers() {
             <p className="text-base sm:text-xl font-black text-black/85 mb-1">
               free <span className="text-[#FF9B3B]">$BLACKBALLS</span> for early degens 🥜
             </p>
-            <p className="text-black/55 text-sm max-w-md mx-auto font-semibold">
-              do the tasks. drop wallet. get tokens before normies wake up. FOMO is real.
+            <p className="text-black/55 text-sm max-w-xl mx-auto font-semibold">
+              game&apos;s locked for now — you&apos;re only here to submit your wallet, unlock your proof card,
+              screenshot it, and reply on X. no screenshot = no balls.
             </p>
+
+            <div className="mt-4 inline-flex items-center gap-2 meme-badge bg-zinc-800 text-lime-400 px-4 py-1.5 text-xs font-black">
+              <Lock size={12} />
+              crash game locked · wallet + proof card only
+            </div>
 
             <div className="mt-6 max-w-md mx-auto">
               <div className="flex justify-between text-xs uppercase tracking-widest mb-2 font-black">
@@ -187,7 +154,7 @@ export default function First500Believers() {
                   style={{ width: `${progress}%` }}
                 />
               </div>
-              <p className="text-black/40 text-xs mt-2 italic font-semibold">number go brrr...</p>
+              <p className="text-black/40 text-xs mt-2 italic font-semibold">spots vanishing in real time...</p>
             </div>
           </div>
         </div>
@@ -199,156 +166,156 @@ export default function First500Believers() {
               <Zap size={22} className="text-[#FF9B3B]" />
               how to qualify (ez)
             </h3>
-            {STEPS.map((step) => {
-              const taskKey = TASK_BY_STEP[step.num];
-              const isComplete = taskKey ? completedTasks[taskKey] : false;
 
-              return (
+            {/* Step 1 — social tasks */}
+            <div
+              className={`meme-card believers-step flex items-start gap-3 p-4 step-pill-pink ${
+                allSocialComplete ? 'border-green-500 ring-2 ring-green-400' : ''
+              }`}
+            >
               <div
-                key={step.num}
-                className={`meme-card believers-step flex items-start gap-3 p-4 ${step.accent} ${
-                  isComplete ? 'border-green-500 ring-2 ring-green-400' : ''
+                className={`flex-shrink-0 w-9 h-9 rounded-full border-2 border-black flex items-center justify-center font-bangers text-lg shadow-[2px_2px_0_#000] ${
+                  allSocialComplete ? 'bg-green-500 text-white' : 'bg-[#FF9B3B] text-black'
                 }`}
               >
-                <div className={`flex-shrink-0 w-9 h-9 rounded-full border-2 border-black flex items-center justify-center font-bangers text-lg shadow-[2px_2px_0_#000] ${
-                  isComplete ? 'bg-green-500 text-white' : 'bg-[#FF9B3B] text-black'
-                }`}>
-                  {isComplete ? <CheckCircle2 size={20} /> : step.num}
+                {allSocialComplete ? <CheckCircle2 size={20} /> : 1}
+              </div>
+              <div className="flex-1 min-w-0 pt-0.5">
+                <span className="text-black/85 text-sm sm:text-base font-semibold">
+                  Do the social tasks
+                </span>
+                <ul className="mt-3 space-y-2.5">
+                  {SOCIAL_SUBTASKS.map((sub) => {
+                    const done = completedTasks[sub.taskKey];
+                    return (
+                      <li key={sub.taskKey} className="flex items-start gap-2">
+                        {sub.icon}
+                        <div className="min-w-0">
+                          <span className={`text-xs sm:text-sm font-semibold ${done ? 'text-green-700' : 'text-black/75'}`}>
+                            {sub.text}
+                            {done && <span className="ml-1 font-black">✓</span>}
+                          </span>
+                          <a
+                            href={sub.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => markTaskComplete(sub.taskKey)}
+                            className="inline-flex items-center gap-1.5 mt-1 text-xs text-sky-700 hover:text-sky-900 transition-colors font-bold"
+                          >
+                            {sub.taskKey === 'task1' && <Repeat2 size={12} />}
+                            {sub.linkLabel}
+                            <ExternalLink size={11} />
+                          </a>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+
+            {STEPS.map((step) => (
+              <div
+                key={step.num}
+                className={`meme-card believers-step flex items-start gap-3 p-4 ${step.accent}`}
+              >
+                <div className="flex-shrink-0 w-9 h-9 rounded-full border-2 border-black flex items-center justify-center font-bangers text-lg shadow-[2px_2px_0_#000] bg-[#FF9B3B] text-black">
+                  {step.num}
                 </div>
                 <div className="flex-1 min-w-0 pt-0.5">
                   <div className="flex items-center gap-2 flex-wrap">
                     {step.icon}
                     <span className="text-black/85 text-sm sm:text-base font-semibold">
                       {step.text}
-                      {step.optional && (
-                        <span className="ml-1 text-black/40 text-xs">(optional lol)</span>
-                      )}
                     </span>
-                    {isComplete && (
-                      <span className="text-green-600 font-black text-sm">✓</span>
-                    )}
                   </div>
                   {step.link && (
                     <a
                       href={step.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={() => taskKey && markTaskComplete(taskKey)}
                       className="inline-flex items-center gap-1.5 mt-2 text-xs sm:text-sm text-sky-700 hover:text-sky-900 transition-colors font-bold"
                     >
-                      {step.num === 1 && <Repeat2 size={14} />}
                       {step.linkLabel}
                       <ExternalLink size={12} />
                     </a>
                   )}
                 </div>
               </div>
-            );})}
+            ))}
           </div>
 
-          {/* Form */}
-          <div className="meme-card believers-form p-6 sm:p-8 bg-white">
-            {qualified ? (
-              <div className="flex flex-col items-center justify-center text-center py-6 sm:py-10 gap-5">
-                <img src="/logo.png" alt="Qualified" className="w-20 h-20 object-contain believers-success-pulse logo-pulse" />
-                <div>
-                  <h3 className="font-bangers text-3xl sm:text-4xl mb-2 leading-tight">
-                    <span className="cartoon-title">YOU&apos;RE </span>
-                    <span className="cartoon-title-orange">IN!!!</span>
-                  </h3>
-                  <p className="text-black/65 text-base max-w-sm mx-auto font-semibold">
-                    free <span className="text-[#FF9B3B] font-black">$BLACKBALLS</span> incoming.
-                    don&apos;t paper hand before they arrive.
-                  </p>
-                </div>
-                <div className="text-black/45 text-xs font-mono break-all max-w-full px-2 font-bold">
-                  {wallet}
-                </div>
+          {/* Proof flow */}
+          <div className="meme-card believers-form p-6 sm:p-8 bg-white flex flex-col">
+            <div className="meme-badge inline-flex self-start items-center gap-2 bg-lime-300 text-black px-3 py-1 text-xs mb-4 font-black">
+              <Camera size={12} />
+              screenshot = your ticket
+            </div>
+
+            <h3 className="font-bangers text-2xl sm:text-3xl text-black mb-2 leading-tight">
+              <span className="cartoon-title">PROOF </span>
+              <span className="cartoon-title-orange">OR GTFO</span>
+            </h3>
+            <p className="text-black/55 text-sm mb-4 font-semibold">
+              the game site is open for wallet submission only. you&apos;ll see a locked crash chart in the
+              background — that&apos;s FOMO. submit your wallet to unlock your Congratulations Card.
+            </p>
+
+            <div className="flex items-start gap-2 bg-zinc-100 border-2 border-black rounded-xl px-4 py-3 text-black/70 text-xs sm:text-sm shadow-[3px_3px_0_#000] mb-6 font-semibold">
+              <Lock size={16} className="flex-shrink-0 mt-0.5 text-zinc-600" />
+              not playable yet — proof card unlock only
+            </div>
+
+            {/* Mock congrats card preview */}
+            <div className="bg-zinc-900 border-4 border-black rounded-2xl p-5 sm:p-6 mb-6 shadow-[6px_6px_0_#000] text-center">
+              <div className="meme-badge inline-flex items-center gap-1.5 bg-lime-400 text-black px-3 py-1 text-[10px] sm:text-xs mb-3 font-black">
+                <CheckCircle2 size={12} />
+                example proof card
               </div>
-            ) : (
-              <>
-                <h3 className="font-bangers text-2xl text-black mb-1">drop your wallet</h3>
-                <p className="text-black/55 text-sm mb-5 font-semibold">
-                  finish steps 1–3 or the balls god rejects you.
-                </p>
+              <img
+                src="/logo.png"
+                alt="BlackBalls"
+                className="w-14 h-14 mx-auto mb-3 object-contain logo-pulse"
+              />
+              <p className="font-bangers text-xl sm:text-2xl text-lime-400 mb-1">
+                CONGRATS, DEGEN!
+              </p>
+              <p className="text-zinc-400 text-xs sm:text-sm font-bold mb-3">
+                you&apos;re in the first 500 balls club 🥜
+              </p>
+              <div className="bg-black border-2 border-[#FF9B3B] rounded-xl px-3 py-2 font-mono text-[10px] sm:text-xs text-[#FF9B3B] break-all">
+                0xYourWallet...ProofCard
+              </div>
+              <p className="text-zinc-500 text-[10px] sm:text-xs mt-3 font-semibold italic">
+                ↑ screenshot THIS card after wallet submit ↑
+              </p>
+            </div>
 
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div>
-                    <label htmlFor="wallet" className="block text-black/60 text-xs uppercase tracking-widest mb-2 font-bold">
-                      Wallet Address <span className="text-[#FF9B3B]">*</span>
-                    </label>
-                    <div className="relative">
-                      <Wallet size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#FF9B3B]/70" />
-                      <input
-                        id="wallet"
-                        type="text"
-                        value={wallet}
-                        onChange={(e) => setWallet(e.target.value)}
-                        placeholder="0xYourWalletAddress"
-                        required
-                        className="meme-input w-full pl-11 pr-4 py-3.5 font-mono text-sm"
-                      />
-                    </div>
-                  </div>
+            <div className="space-y-3 mt-auto">
+              <a
+                href={GAME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="meme-btn meme-btn-orange w-full py-4 text-base sm:text-lg btn-press flex items-center justify-center gap-2"
+              >
+                <Wallet size={22} />
+                🔓 SUBMIT WALLET &amp; UNLOCK CARD
+              </a>
 
-                  <div>
-                    <label htmlFor="username" className="block text-black/60 text-xs uppercase tracking-widest mb-2 font-bold">
-                      X Username <span className="text-black/35">(optional)</span>
-                    </label>
-                    <div className="relative">
-                      <AtSign size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-black/35" />
-                      <input
-                        id="username"
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="@YourHandle"
-                        className="meme-input w-full pl-11 pr-4 py-3.5 text-sm"
-                      />
-                    </div>
-                  </div>
+              <a
+                href={LAUNCH_POST_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="meme-btn meme-btn-sky w-full py-4 text-base sm:text-lg btn-press flex items-center justify-center gap-2"
+              >
+                <Camera size={20} />
+                📸 REPLY ON X WITH SCREENSHOT
+              </a>
+            </div>
 
-                  {error && (
-                    <div className="flex items-start gap-2 bg-red-100 border-2 border-black rounded-xl px-4 py-3 text-red-700 text-sm shadow-[3px_3px_0_#000]">
-                      <AlertCircle size={18} className="flex-shrink-0 mt-0.5" />
-                      {error}
-                    </div>
-                  )}
-
-                  {spotsLeft === 0 && (
-                    <div className="flex items-start gap-2 bg-amber-100 border-2 border-black rounded-xl px-4 py-3 text-amber-800 text-sm shadow-[3px_3px_0_#000]">
-                      <AlertCircle size={18} className="flex-shrink-0 mt-0.5" />
-                      All 500 spots gone. Skill issue.
-                    </div>
-                  )}
-
-.old_string
-                  <button
-                    type="submit"
-                    disabled={loading || spotsLeft === 0}
-                    className="meme-btn meme-btn-orange w-full py-4 text-lg btn-press flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
-                  >
-                    {loading ? (
-                      <>
-                        <span className="believers-spinner w-5 h-5 border-2 border-black/30 border-t-black rounded-full" />
-                        checking your balls...
-                      </>
-                    ) : (
-                      <>
-                        <CheckCircle2 size={20} />
-                        verify &amp; qualify 🥜
-                      </>
-                    )}
-                  </button>
-                </form>
-
-                {!usingRemoteStorage() && (
-                  <p className="mt-4 text-black/35 text-xs text-center font-medium">
-                    Demo mode: submissions stored locally. Configure Supabase for production.
-                  </p>
-                )}
-              </>
-            )}
+            <p className="mt-5 text-black/40 text-xs text-center font-semibold leading-relaxed">
+              step 1 = social cred. steps 2–6 = mandatory. no proof card screenshot on the launch post = you&apos;re ngmi.
+            </p>
           </div>
         </div>
       </div>
