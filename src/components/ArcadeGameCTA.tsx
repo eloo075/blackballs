@@ -1,12 +1,11 @@
 export default function ArcadeGameCTA() {
   return (
-    <div
-      role="status"
-      aria-label="Game engine locked — coming soon"
-      className="inline-flex items-center justify-center gap-2 sm:gap-3 w-full max-w-2xl px-6 sm:px-10 py-5 sm:py-6 text-center font-bangers text-lg sm:text-2xl md:text-3xl uppercase tracking-wide text-orange-500 bg-zinc-800 border-4 border-orange-500 rounded-2xl shadow-[6px_6px_0px_0px_#000] cursor-not-allowed select-none"
+    <a
+      href="#first-500"
+      className="arcade-game-cta meme-btn meme-btn-lime inline-flex items-center justify-center gap-2 sm:gap-3 w-full max-w-2xl px-6 sm:px-10 py-5 sm:py-6 text-center font-bangers text-lg sm:text-2xl md:text-3xl uppercase tracking-wide"
     >
-      <span>🔒</span>
-      <span>GAME ENGINE LOCKED (COMING SOON)</span>
-    </div>
+      <span aria-hidden>🥜</span>
+      <span>JOIN THE DROP</span>
+    </a>
   );
 }

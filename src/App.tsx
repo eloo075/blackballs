@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Copy, Check, Send, ExternalLink, TrendingUp, Zap, Shield, Flame, ChevronDown, Menu, X, Wallet } from 'lucide-react';
+import { Copy, Check, Send, ExternalLink, TrendingUp, Zap, Shield, Flame, ChevronDown, Menu, X, Wallet, Gift, Trophy, ShieldCheck } from 'lucide-react';
 import First500Believers from './components/First500Believers';
 import LogoRain from './components/LogoRain';
 import PastelBackground from './components/PastelBackground';
@@ -48,7 +48,7 @@ function CopyButton({ text }: { text: string }) {
 
 function Ticker() {
   const items = [
-    '$BLACKBALLS', 'BALLS OF STEEL', 'NO ROADMAP JUST VIBES', 'NUMBER GO BRRR',
+    '$BLACKBALLS', 'BALLS OF STEEL', 'REAL GAME JUST VIBES', 'NUMBER GO BRRR',
     'ROBINHOOD CHAIN', 'DIAMOND NUTS', 'PHANTOM GANG', 'DEGEN ENERGY', 'HODL OR GET REKT',
   ];
   const doubled = [...items, ...items];
@@ -86,6 +86,12 @@ function Nav() {
         </a>
 
         <div className="hidden md:flex items-center gap-8">
+          <a
+            href="#first-500"
+            className="nav-play text-sm uppercase tracking-wider"
+          >
+            JOIN THE DROP
+          </a>
           {links.map(l => (
             <a
               key={l}
@@ -110,6 +116,13 @@ function Nav() {
 
       {mobileOpen && (
         <div className="md:hidden bg-white border-t-2 border-black px-6 py-4 flex flex-col gap-4 shadow-[0_4px_0_#000]">
+          <a
+            href="#first-500"
+            className="meme-btn meme-btn-orange px-5 py-3 text-center"
+            onClick={() => setMobileOpen(false)}
+          >
+            JOIN THE DROP
+          </a>
           {links.map(l => (
             <a key={l} href={`#${l.toLowerCase().replace(/ /g, '-')}`}
               className="text-black/80 hover:text-[#FF9B3B] font-bold py-2 border-b border-black/10 transition-colors"
@@ -117,7 +130,7 @@ function Nav() {
               {l}
             </a>
           ))}
-          <a href="#how-to-buy" className="meme-btn meme-btn-orange px-5 py-3 text-center mt-2"
+          <a href="#how-to-buy" className="meme-btn meme-btn-sky px-5 py-3 text-center mt-2"
             onClick={() => setMobileOpen(false)}>
             APE IN 🥜
           </a>
@@ -144,7 +157,7 @@ function Hero() {
             <div className="meme-badge bg-lime-300 text-black px-4 py-2 text-xs sm:text-sm flex flex-wrap items-center justify-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
               <RobinhoodFeather className="w-4 h-4 shrink-0" />
-              <span className="font-black uppercase tracking-wide">live on {CHAIN_NAME}!!!</span>
+              <span className="font-black uppercase tracking-wide">soon on {CHAIN_NAME}</span>
             </div>
           </div>
 
@@ -168,7 +181,7 @@ function Hero() {
           <p className="text-black/75 text-xl md:text-2xl max-w-2xl leading-relaxed font-semibold">
             the dumbest, boldest, most{' '}
             <span className="text-[#FF9B3B] font-black">ballsy</span> meme coin on{' '}
-            {CHAIN_NAME}. no roadmap. no utility. just vibes and{' '}
+            {CHAIN_NAME}. no roadmap. no promises. just a real game and{' '}
             <span className="text-[#FF9B3B] font-black">number go brrr</span>.
           </p>
 
@@ -209,6 +222,108 @@ function Hero() {
           <div className="w-64 md:w-96 lg:w-[32rem] mascot-wrapper">
             <img src="/images/99.png" alt="Mascot" className="w-full h-full object-contain mascot-zoom" />
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function GamePreviewVideo() {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    video.muted = true;
+    const play = video.play();
+    if (play) play.catch(() => {});
+  }, []);
+
+  return (
+    <video
+      ref={ref}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-label="BlackBalls crash game preview"
+    >
+      <source src="/game-preview.mp4" type="video/mp4" />
+    </video>
+  );
+}
+
+function TheGame() {
+  const { ref, visible } = useInView();
+
+  const points = [
+    {
+      icon: <Gift className="text-[#FF9B3B]" size={32} />,
+      title: 'FREE TO PLAY',
+      body: 'play-money credits. no deposit. no wallet drain. just smash cash out.',
+    },
+    {
+      icon: <Trophy className="text-[#FF9B3B]" size={32} />,
+      title: 'REAL PRIZES',
+      body: 'top of the weekly board wins real $BLACKBALLS. vibes AND bags.',
+    },
+    {
+      icon: <ShieldCheck className="text-[#FF9B3B]" size={32} />,
+      title: 'PROVABLY FAIR',
+      body: 'every round verifiable. seed committed before it runs. no dealer magic.',
+    },
+  ];
+
+  return (
+    <section id="the-game" className="relative py-24 md:py-32 overflow-hidden">
+      <div ref={ref} className={`relative z-10 max-w-7xl mx-auto px-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="text-center mb-12">
+          <span className="meme-badge bg-lime-300 text-black px-4 py-1 text-xs mb-3">crash game soon. drop is live.</span>
+          <h2 className="font-bangers text-5xl md:text-7xl mt-2 leading-tight">
+            <span className="cartoon-title">NOT JUST A COIN. </span>
+            <span className="cartoon-title-orange">WE BUILT THE GAME.</span>
+          </h2>
+        </div>
+
+        <div className="game-preview-frame max-w-5xl mx-auto mb-8">
+          <GamePreviewVideo />
+        </div>
+
+        <div className="meme-card bg-yellow-50 p-6 md:p-8 text-center max-w-4xl mx-auto mb-10">
+          <p className="font-bangers text-2xl md:text-3xl text-black mb-3">the loop is stupid simple</p>
+          <p className="text-black/70 text-base md:text-lg leading-relaxed font-semibold">
+            connect wallet → get free credits → play the crash → climb the weekly leaderboard →
+            top players win real $BLACKBALLS. no deposit. no cope. just balls.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          {points.map((c, i) => {
+            const iconBgs = ['bg-yellow-100', 'bg-pink-100', 'bg-sky-100'];
+            return (
+              <div
+                key={c.title}
+                className={`meme-card card-hover p-8 pastel-accent-${i}`}
+                style={{ transitionDelay: `${i * 100}ms` }}
+              >
+                <div className={`${iconBgs[i]} w-16 h-16 rounded-xl border-2 border-black flex items-center justify-center mb-6 shadow-[3px_3px_0_#000]`}>
+                  {c.icon}
+                </div>
+                <h3 className="font-bangers text-2xl text-black mb-3">{c.title}</h3>
+                <p className="text-black/65 leading-relaxed font-medium">{c.body}</p>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="flex justify-center">
+          <a
+            href="#first-500"
+            className="meme-btn meme-btn-orange px-10 py-5 text-xl btn-press inline-flex items-center gap-3"
+          >
+            JOIN THE DROP 🥜
+          </a>
         </div>
       </div>
     </section>
@@ -300,7 +415,7 @@ function Tokenomics() {
     <section id="ballsvibe" className="relative py-32 overflow-hidden">
       <div ref={ref} className={`relative z-10 max-w-7xl mx-auto px-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="text-center mb-16">
-          <span className="meme-badge bg-pink-300 text-black px-4 py-1 text-xs mb-3">no tokenomics. just vibes.</span>
+          <span className="meme-badge bg-pink-300 text-black px-4 py-1 text-xs mb-3">tokenomics incoming. vibes already live.</span>
           <h2 className="font-bangers text-5xl md:text-7xl mt-2">
             <span className="cartoon-title">BALLS </span>
             <span className="cartoon-title-orange">VIBE</span>
@@ -308,9 +423,9 @@ function Tokenomics() {
         </div>
 
         <div className="meme-card p-8 sm:p-12 text-center max-w-4xl mx-auto bg-pink-50">
-          <h3 className="font-bangers text-2xl sm:text-3xl text-black mb-6">not a project. a cult with better memes.</h3>
+          <h3 className="font-bangers text-2xl sm:text-3xl text-black mb-6">not a whitepaper cult. a crash game cult with better memes.</h3>
           <p className="text-black/65 text-base sm:text-lg leading-relaxed mb-5 font-medium">
-            we&apos;re not building a protocol — we&apos;re building chaos on {CHAIN_NAME}.
+            we built a real on-chain crash game on {CHAIN_NAME} — then the chaos around it.
             late-night energy, unhinged community, and balls of steel all in one package.
           </p>
           <p className="text-black/65 text-base sm:text-lg leading-relaxed mb-5 font-medium">
@@ -557,6 +672,7 @@ export default function App() {
         <Ticker />
         <First500Believers />
         <Hero />
+        <TheGame />
         <About />
         <Tokenomics />
         <HowToBuy />
