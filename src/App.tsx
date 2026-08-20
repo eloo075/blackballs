@@ -339,6 +339,7 @@ function Roadmap() {
       title: 'WE ACTUALLY BUILT IT',
       status: 'SHIPPED',
       statusTone: 'shipped' as const,
+      accent: 'roadmap-phase-shipped',
       items: [
         'on-chain crash game — built, live, playable',
         'provably fair — every round verifiable, seed committed before it runs',
@@ -351,6 +352,7 @@ function Roadmap() {
       title: 'THE FIRST 500',
       status: 'IN PROGRESS',
       statusTone: 'progress' as const,
+      accent: 'roadmap-phase-progress',
       items: [
         'first 500 believers claim their spot',
         '$BLACKBALLS launches on Robinhood Chain',
@@ -363,6 +365,7 @@ function Roadmap() {
       title: 'MORE WAYS TO LOSE',
       status: 'NEXT',
       statusTone: 'next' as const,
+      accent: 'roadmap-phase-next',
       items: [
         'Flip goes live (already built, just locked)',
         'more game modes',
@@ -375,6 +378,7 @@ function Roadmap() {
       title: 'BALLS OF STEEL',
       status: 'THE VISION',
       statusTone: 'vision' as const,
+      accent: 'roadmap-phase-vision',
       items: [
         'more games in the arcade',
         'deeper competitive seasons',
@@ -390,16 +394,9 @@ function Roadmap() {
     vision: 'bg-pink-300',
   };
 
-  const cardStyles = {
-    shipped: 'bg-lime-50 border-lime-400',
-    progress: 'bg-yellow-50',
-    next: 'bg-sky-50',
-    vision: 'bg-pink-50',
-  };
-
   const statusIcons = {
     shipped: <CheckCircle2 size={16} className="shrink-0" />,
-    progress: <Loader2 size={16} className="shrink-0" />,
+    progress: <Loader2 size={16} className="shrink-0 animate-spin" />,
     next: <Lock size={16} className="shrink-0" />,
     vision: <Sparkles size={16} className="shrink-0" />,
   };
@@ -407,55 +404,63 @@ function Roadmap() {
   return (
     <section id="roadmap" className="relative py-24 md:py-32 overflow-hidden">
       <div ref={ref} className={`relative z-10 max-w-7xl mx-auto px-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <div className="text-center mb-16">
+        <div className="text-center mb-14 md:mb-16">
           <span className="meme-badge bg-yellow-300 text-black px-4 py-1 text-xs mb-3">phases. not dates.</span>
-          <h2 className="font-bangers text-5xl md:text-7xl mt-2">
+          <h2 className="font-bangers text-5xl md:text-7xl mt-2 leading-none">
             <span className="cartoon-title">THE </span>
             <span className="cartoon-title-orange">ROADMAP</span>
           </h2>
-          <p className="text-black/60 text-lg max-w-2xl mx-auto mt-4 leading-relaxed font-semibold">
+          <p className="roadmap-subhead text-lg md:text-xl max-w-2xl mx-auto mt-5 leading-relaxed">
             most meme coins ship a jpeg and a prayer. we shipped a game first. here&apos;s what comes next.
           </p>
         </div>
 
-        <div className="relative max-w-3xl mx-auto">
-          <div className="absolute left-6 md:left-8 top-4 bottom-4 w-1 bg-black/15 rounded-full" aria-hidden />
+        <div className="relative max-w-4xl mx-auto">
+          <div className="roadmap-rail hidden sm:block" aria-hidden />
 
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-7 md:gap-8">
             {phases.map((phase, i) => (
-              <div
+              <article
                 key={phase.num}
-                className={`meme-card card-hover relative p-6 md:p-8 pl-16 md:pl-20 ${cardStyles[phase.statusTone]}`}
-                style={{ transitionDelay: `${i * 80}ms` }}
+                className={`roadmap-card meme-card card-hover relative overflow-hidden ${phase.accent}`}
+                style={{ transitionDelay: `${i * 90}ms` }}
               >
-                <div className="absolute left-3 md:left-4 top-7 w-8 h-8 md:w-10 md:h-10 rounded-full border-3 border-black bg-white shadow-[3px_3px_0_#000] flex items-center justify-center font-bangers text-sm md:text-base z-10">
-                  {phase.num}
-                </div>
+                <div className="roadmap-card-stripe" aria-hidden />
 
-                <div className="flex flex-wrap items-center gap-3 mb-4">
-                  <h3 className="font-bangers text-2xl md:text-3xl text-black">
-                    PHASE {phase.num} — {phase.title}
-                  </h3>
-                  <span className={`meme-badge ${statusStyles[phase.statusTone]} text-black px-3 py-1 text-xs inline-flex items-center gap-1.5`}>
-                    {statusIcons[phase.statusTone]}
-                    {phase.status}
-                  </span>
-                </div>
+                <div className="relative p-6 pt-24 sm:p-8 sm:pt-8 md:p-10 sm:pl-28 md:pl-32">
+                  <div className="roadmap-stamp absolute left-5 top-5 sm:left-5 sm:top-8" aria-hidden>
+                    <span className="roadmap-stamp-num font-bangers">{phase.num}</span>
+                    <span className="roadmap-stamp-label font-bangers">PHASE</span>
+                  </div>
 
-                <ul className="space-y-2.5">
-                  {phase.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-black/70 font-medium leading-relaxed">
-                      <span className="mt-1.5 w-2 h-2 rounded-full bg-[#FF9B3B] border border-black shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                  <div className="flex flex-col gap-3 mb-5 sm:mb-6">
+                    <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                      <span className={`meme-badge ${statusStyles[phase.statusTone]} text-black px-3 py-1 text-xs inline-flex items-center gap-1.5`}>
+                        {statusIcons[phase.statusTone]}
+                        {phase.status}
+                      </span>
+                      <span className="roadmap-phase-tag font-bangers">PHASE {phase.num}</span>
+                    </div>
+                    <h3 className="roadmap-phase-title font-bangers leading-none">
+                      {phase.title}
+                    </h3>
+                  </div>
+
+                  <ul className="space-y-3">
+                    {phase.items.map((item) => (
+                      <li key={item} className="roadmap-item flex items-start gap-3">
+                        <span className="roadmap-bullet shrink-0" aria-hidden>★</span>
+                        <span className="roadmap-item-text">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
             ))}
           </div>
         </div>
 
-        <p className="text-center text-black/50 text-sm md:text-base font-semibold mt-12 max-w-xl mx-auto italic">
+        <p className="roadmap-footnote text-center mt-12 md:mt-14 max-w-xl mx-auto">
           no dates. no promises we can&apos;t keep. we ship when it&apos;s ready.
         </p>
       </div>
