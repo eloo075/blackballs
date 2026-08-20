@@ -385,3 +385,7 @@ body {
   background: #ffb86a;
   color: #000;
 }
+
+.border-3 {
+  border-width: 3px;
+}

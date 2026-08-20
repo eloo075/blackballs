@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Copy, Check, Send, ExternalLink, TrendingUp, Zap, Shield, Flame, ChevronDown, Menu, X, Wallet, Gift, Trophy, ShieldCheck } from 'lucide-react';
+import { Copy, Check, Send, ExternalLink, TrendingUp, Zap, Shield, Flame, ChevronDown, Menu, X, Wallet, Gift, Trophy, ShieldCheck, CheckCircle2, Loader2, Lock, Sparkles } from 'lucide-react';
 import First500Believers from './components/First500Believers';
 import LogoRain from './components/LogoRain';
 import PastelBackground from './components/PastelBackground';
@@ -75,7 +75,7 @@ function Nav() {
     return () => window.removeEventListener('scroll', handler);
   }, []);
 
-  const links = ['First 500', 'About', 'BALLSVIBE', 'How to Buy', 'Community'];
+  const links = ['First 500', 'About', 'Roadmap', 'BALLSVIBE', 'How to Buy', 'Community'];
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 nav-blur ${scrolled ? 'bg-white/90 border-b-2 border-black' : 'bg-transparent'}`}>
@@ -143,7 +143,7 @@ function Nav() {
 function Hero() {
   const stats = [
     { label: 'vibe check', value: 'certified unhinged ✓' },
-    { label: 'roadmap', value: 'lol no' },
+    { label: 'roadmap', value: 'phases. no cope dates.' },
     { label: 'utility', value: 'balls of steel' },
   ];
 
@@ -181,7 +181,7 @@ function Hero() {
           <p className="text-black/75 text-xl md:text-2xl max-w-2xl leading-relaxed font-semibold">
             the dumbest, boldest, most{' '}
             <span className="text-[#FF9B3B] font-black">ballsy</span> meme coin on{' '}
-            {CHAIN_NAME}. no roadmap. no promises. just a real game and{' '}
+            {CHAIN_NAME}. no dates. no empty promises. just a real game and{' '}
             <span className="text-[#FF9B3B] font-black">number go brrr</span>.
           </p>
 
@@ -325,6 +325,139 @@ function TheGame() {
             JOIN THE DROP 🥜
           </a>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function Roadmap() {
+  const { ref, visible } = useInView();
+
+  const phases = [
+    {
+      num: '01',
+      title: 'WE ACTUALLY BUILT IT',
+      status: 'SHIPPED',
+      statusTone: 'shipped' as const,
+      items: [
+        'on-chain crash game — built, live, playable',
+        'provably fair — every round verifiable, seed committed before it runs',
+        'wallet accounts, persistent balances, weekly leaderboard',
+        'free to play. no deposits. no wallet drains.',
+      ],
+    },
+    {
+      num: '02',
+      title: 'THE FIRST 500',
+      status: 'IN PROGRESS',
+      statusTone: 'progress' as const,
+      items: [
+        'first 500 believers claim their spot',
+        '$BLACKBALLS launches on Robinhood Chain',
+        'the 500 get airdropped',
+        'weekly leaderboard prizes go live — top players win real $BLACKBALLS',
+      ],
+    },
+    {
+      num: '03',
+      title: 'MORE WAYS TO LOSE',
+      status: 'NEXT',
+      statusTone: 'next' as const,
+      items: [
+        'Flip goes live (already built, just locked)',
+        'more game modes',
+        'bigger weekly prize pools',
+        'community tournaments',
+      ],
+    },
+    {
+      num: '04',
+      title: 'BALLS OF STEEL',
+      status: 'THE VISION',
+      statusTone: 'vision' as const,
+      items: [
+        'more games in the arcade',
+        'deeper competitive seasons',
+        'whatever the cult demands',
+      ],
+    },
+  ];
+
+  const statusStyles = {
+    shipped: 'bg-lime-300',
+    progress: 'bg-yellow-300',
+    next: 'bg-sky-300',
+    vision: 'bg-pink-300',
+  };
+
+  const cardStyles = {
+    shipped: 'bg-lime-50 border-lime-400',
+    progress: 'bg-yellow-50',
+    next: 'bg-sky-50',
+    vision: 'bg-pink-50',
+  };
+
+  const statusIcons = {
+    shipped: <CheckCircle2 size={16} className="shrink-0" />,
+    progress: <Loader2 size={16} className="shrink-0" />,
+    next: <Lock size={16} className="shrink-0" />,
+    vision: <Sparkles size={16} className="shrink-0" />,
+  };
+
+  return (
+    <section id="roadmap" className="relative py-24 md:py-32 overflow-hidden">
+      <div ref={ref} className={`relative z-10 max-w-7xl mx-auto px-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="text-center mb-16">
+          <span className="meme-badge bg-yellow-300 text-black px-4 py-1 text-xs mb-3">phases. not dates.</span>
+          <h2 className="font-bangers text-5xl md:text-7xl mt-2">
+            <span className="cartoon-title">THE </span>
+            <span className="cartoon-title-orange">ROADMAP</span>
+          </h2>
+          <p className="text-black/60 text-lg max-w-2xl mx-auto mt-4 leading-relaxed font-semibold">
+            most meme coins ship a jpeg and a prayer. we shipped a game first. here&apos;s what comes next.
+          </p>
+        </div>
+
+        <div className="relative max-w-3xl mx-auto">
+          <div className="absolute left-6 md:left-8 top-4 bottom-4 w-1 bg-black/15 rounded-full" aria-hidden />
+
+          <div className="flex flex-col gap-6">
+            {phases.map((phase, i) => (
+              <div
+                key={phase.num}
+                className={`meme-card card-hover relative p-6 md:p-8 pl-16 md:pl-20 ${cardStyles[phase.statusTone]}`}
+                style={{ transitionDelay: `${i * 80}ms` }}
+              >
+                <div className="absolute left-3 md:left-4 top-7 w-8 h-8 md:w-10 md:h-10 rounded-full border-3 border-black bg-white shadow-[3px_3px_0_#000] flex items-center justify-center font-bangers text-sm md:text-base z-10">
+                  {phase.num}
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 mb-4">
+                  <h3 className="font-bangers text-2xl md:text-3xl text-black">
+                    PHASE {phase.num} — {phase.title}
+                  </h3>
+                  <span className={`meme-badge ${statusStyles[phase.statusTone]} text-black px-3 py-1 text-xs inline-flex items-center gap-1.5`}>
+                    {statusIcons[phase.statusTone]}
+                    {phase.status}
+                  </span>
+                </div>
+
+                <ul className="space-y-2.5">
+                  {phase.items.map((item) => (
+                    <li key={item} className="flex items-start gap-2.5 text-black/70 font-medium leading-relaxed">
+                      <span className="mt-1.5 w-2 h-2 rounded-full bg-[#FF9B3B] border border-black shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <p className="text-center text-black/50 text-sm md:text-base font-semibold mt-12 max-w-xl mx-auto italic">
+          no dates. no promises we can&apos;t keep. we ship when it&apos;s ready.
+        </p>
       </div>
     </section>
   );
@@ -673,6 +806,7 @@ export default function App() {
         <First500Believers />
         <Hero />
         <TheGame />
+        <Roadmap />
         <About />
         <Tokenomics />
         <HowToBuy />
