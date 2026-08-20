@@ -85,7 +85,7 @@ function Nav() {
           <span className="font-bangers text-2xl tracking-wider group-hover:opacity-90 transition-opacity cartoon-title-orange">BLACKBALLS</span>
         </a>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-5 lg:gap-7">
           <a
             href="#first-500"
             className="nav-play text-sm uppercase tracking-wider"
@@ -96,7 +96,7 @@ function Nav() {
             <a
               key={l}
               href={`#${l.toLowerCase().replace(/ /g, '-')}`}
-              className="text-black/70 hover:text-[#FF9B3B] font-bold transition-colors duration-200 text-sm uppercase tracking-wider"
+              className="nav-link"
             >
               {l}
             </a>
@@ -125,7 +125,7 @@ function Nav() {
           </a>
           {links.map(l => (
             <a key={l} href={`#${l.toLowerCase().replace(/ /g, '-')}`}
-              className="text-black/80 hover:text-[#FF9B3B] font-bold py-2 border-b border-black/10 transition-colors"
+              className="nav-link nav-link-mobile py-2 border-b border-black/10"
               onClick={() => setMobileOpen(false)}>
               {l}
             </a>
