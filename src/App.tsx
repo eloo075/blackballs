@@ -480,7 +480,7 @@ function About() {
     {
       icon: <Zap className="text-[#FF9B3B]" size={32} />,
       title: 'Number Go Brrr',
-      body: 'not financial advice. not even financial anything. just vibes, memes, and chart lines that only go up (probably).',
+      body: 'just vibes, memes, and chart lines that only go up (probably). number go brrr energy only.',
     },
     {
       icon: <Shield className="text-[#FF9B3B]" size={32} />,
@@ -770,12 +770,6 @@ function Footer() {
                 $BLACKBALLS on {CHAIN_NAME}
               </div>
             </div>
-          </div>
-
-          <div className="text-center">
-            <p className="text-black/45 text-xs sm:text-sm max-w-xs italic font-medium">
-              not financial advice. we&apos;re literally balls on a blockchain.
-            </p>
           </div>
 
           <div className="flex items-center gap-4">
